@@ -33,3 +33,16 @@ def check_cowspace(required_mb):
         
     except Exception as e:
         return (True, False, 0)
+    
+def resize_cowspace(new_size_mb):
+    """
+    Resize the cowspace to a new size.
+    
+    Args:
+        new_size_mb (int): New size in megabytes
+    """
+    try:
+        subprocess.run(['mount', '-o', f'remount,size={new_size_mb}M', '/run/archiso/cowspace'], check=True)
+        print(f"  [OK] Resized cowspace to {new_size_mb} MB.")
+    except Exception as e:
+        print(f"  [ERROR] Failed to resize cowspace: {e}")
