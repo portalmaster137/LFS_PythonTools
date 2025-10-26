@@ -50,7 +50,7 @@ def resize_cowspace(new_size_mb):
         return
 
     try:
-        subprocess.run(['mount', '-o', f'remount,size={new_size_mb}M', '/run/archiso/cowspace'], check=True)
+        subprocess.run(['mount', '-o', f'remount,size={new_size_mb+64}M', '/run/archiso/cowspace'], check=True)
         print(f"  [OK] Resized cowspace to {new_size_mb} MB.")
     except Exception as e:
         print(f"  [ERROR] Failed to resize cowspace: {e}")

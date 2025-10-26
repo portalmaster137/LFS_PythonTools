@@ -26,6 +26,12 @@ def main():
     else:
         print("  [ERROR] Not running in LiveISO environment. Cannot proceed.")
         return
+    
+    print("STEP 2: Checking host tools versions...")
+    from modules.host_tools_version_check import do_version_check
+    if not do_version_check():
+        return
+    print("All checks passed. Proceeding with LFS build...")
 
 
 
