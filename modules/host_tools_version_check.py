@@ -3,15 +3,17 @@ def do_version_check():
     import subprocess
     try:
         result = subprocess.run(['./vercheck.sh'], capture_output=True, text=True)
-        if result.returncode != 0:
-            print("  [ERROR] Host tools version check failed:")
+        #check for any "ERROR" in stdout or stderr
+        if "ERROR" in result.stdout or "ERROR" in result.stderr:
+            print("  [ERROR] Host tools version check failed. Please update the required tools.")
             print(result.stdout)
             print(result.stderr)
             return False
         else:
-            print("  [OK] Host tools version check passed.")
+            print("  [OK] All host tools meet the required versions.")
             return True
     except Exception as e:
-        print(f"  [ERROR] Exception occurred while checking host tools versions: {e}")
+        print(f"  [ERROR] Failed to execute version check script: {e}")
         return False
+
         
