@@ -5,6 +5,7 @@ parser.add_argument('block_device')
 
 
 def main():
+    args = parser.parse_args()
     print("LFS Build Tool by porta.")
     print("STEP 1: Checking cowspace...")
     from modules.check_cowspace import check_cowspace, resize_cowspace
@@ -32,6 +33,9 @@ def main():
     if not do_version_check():
         return
     print("All checks passed. Proceeding with LFS build...")
+    print("STEP 3: Setting up block device...")
+    from modules.block_device_setup import setup_block_device
+    setup_block_device(args.block_device)
 
 
 
