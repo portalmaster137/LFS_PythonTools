@@ -4,10 +4,12 @@ def setup_block_device(block_device):
     # block_device = '/dev/sdx'  # example block device
     import subprocess
     # create GPT partition table
+    print("  [INFO] Creating GPT partition table...")
     r = subprocess.run(['parted', block_device, 'mklabel', 'gpt'], capture_output=True, text=True)
     if r.returncode != 0:
         print(f"  [ERROR] Failed to create partition table: {r.stderr}")
         return
+    print("  [INFO] Creating partitions...")
     # create swap partition, 4GB
     r = subprocess.run(['parted', block_device, 'mkpart', 'primary', 'linux-swap', '1MiB', '4097MiB'], capture_output=True, text=True)
     if r.returncode != 0:
