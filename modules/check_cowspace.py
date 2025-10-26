@@ -43,6 +43,7 @@ def resize_cowspace(new_size_mb):
     """
     # check for free memory before resizing
     freemem_kb = os.sysconf('SC_AVPHYS_PAGES') * os.sysconf('SC_PAGESIZE') // 1024
+    print( f"  [INFO] Free memory available: {freemem_kb // 1024} MB")
     freemem_mb = freemem_kb // 1024
     if freemem_mb < new_size_mb:
         print(f"  [ERROR] Not enough free memory to resize cowspace to {new_size_mb} MB.")
