@@ -41,6 +41,13 @@ def resize_cowspace(new_size_mb):
     Args:
         new_size_mb (int): New size in megabytes
     """
+    # check for free memory before resizing
+    freemem_kb = os.sysconf('SC_AVPHYS_PAGES') * os.sysconf('SC_PAGESIZE') // 1024
+    freemem_mb = freemem_kb // 1024
+    if freemem_mb < new_size_mb:
+        print(f"  [ERROR] Not enough free memory to resize cowspace to {new_size_mb} MB.")
+        return
+
     try:
         subprocess.run(['mount', '-o', f'remount,size={new_size_mb}M', '/run/archiso/cowspace'], check=True)
         print(f"  [OK] Resized cowspace to {new_size_mb} MB.")
