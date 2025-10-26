@@ -18,3 +18,8 @@ def main():
             return
     else:
         print("  [ERROR] Not running in LiveISO environment. Cannot proceed.")
+
+
+
+if __name__ == "__main__":
+    main()
